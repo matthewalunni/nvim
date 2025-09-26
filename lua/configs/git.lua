@@ -1,0 +1,2 @@
+-- Octo
+require('octo').setup()
