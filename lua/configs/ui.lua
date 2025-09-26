@@ -2,31 +2,75 @@
 vim.cmd([[colorscheme tokyonight]])
 
 -- Lualine
-require('lualine').setup({
-  options = {
-    theme = 'tokyonight',
-  },
+require("lualine").setup({
+	options = {
+		theme = "tokyonight",
+	},
 })
 
 -- Gitsigns
-require('gitsigns').setup()
+require("gitsigns").setup()
 
 -- Which-key
-require('which-key').setup()
+local wk = require("which-key")
+wk.setup({
+	plugins = {
+		marks = true,
+		registers = true,
+		spelling = {
+			enabled = true,
+			suggestions = 20,
+		},
+		presets = {
+			operators = false,
+			motions = false,
+			text_objects = false,
+			windows = false,
+			nav = false,
+			z = false,
+			g = false,
+		},
+	},
+	icons = {
+		breadcrumb = "»",
+		separator = "➜",
+		group = "+",
+	},
+	keys = {
+		scroll_down = "<c-d>",
+		scroll_up = "<c-u>",
+	},
+	win = {
+		border = "rounded",
+		padding = { 1, 2 },
+		title = true,
+		title_pos = "center",
+		zindex = 1000,
+	},
+	layout = {
+		height = { min = 4, max = 25 },
+		width = { min = 20, max = 50 },
+		spacing = 3,
+		align = "left",
+	},
+	show_help = true,
+	show_keys = true,
+	preset = "helix",
+})
 
 -- Autopairs
-require('nvim-autopairs').setup()
+require("nvim-autopairs").setup()
 
 -- Comment
-require('Comment').setup()
+require("Comment").setup()
 
 -- OSC Yank
-vim.g.oscyank_term = 'default'
-vim.api.nvim_create_autocmd('TextYankPost', {
-  pattern = '*',
-  callback = function()
-    if vim.v.event.operator == 'y' and vim.v.event.regname == '' then
-      vim.cmd('OSCYankReg "')
-    end
-  end,
+vim.g.oscyank_term = "default"
+vim.api.nvim_create_autocmd("TextYankPost", {
+	pattern = "*",
+	callback = function()
+		if vim.v.event.operator == "y" and vim.v.event.regname == "" then
+			vim.cmd('OSCYankReg "')
+		end
+	end,
 })

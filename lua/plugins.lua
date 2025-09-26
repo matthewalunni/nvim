@@ -18,7 +18,6 @@ require("lazy").setup({
 	"pwntester/octo.nvim",
 
 	-- Git wrapper
-	"tpope/vim-fugitive",
 
 	-- LSP
 	{
@@ -128,5 +127,14 @@ require("lazy").setup({
 	{
 		"sphamba/smear-cursor.nvim",
 		opts = {},
+	},
+
+	-- Lazygit
+	{
+		"kdheepak/lazygit.nvim",
+		cmd = "LazyGit",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
 	},
 })
