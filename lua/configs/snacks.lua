@@ -43,6 +43,10 @@ require("snacks").setup({
 		timeout = 2000, -- duration in milliseconds
 		format = "rounded", -- border style
 	},
+	toggle = {},
+	input = {},
+	notifier = {},
+	terminal = {},
 })
 
 vim.notify = require("snacks").notify

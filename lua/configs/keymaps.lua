@@ -9,6 +9,14 @@ vim.keymap.set("n", "<leader>ym", function()
 	vim.notify("Messages copied to clipboard")
 end, { desc = "Yank messages" })
 
+-- Yanky keymaps
+vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
+vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
+
 -- Open dashboard
 vim.keymap.set("n", "<leader>h", ":lua Snacks.dashboard()<CR>", { desc = "Open dashboard" })
 
@@ -16,6 +24,27 @@ vim.keymap.set("n", "<leader>h", ":lua Snacks.dashboard()<CR>", { desc = "Open d
 vim.keymap.set("n", "<leader>fm", function()
 	require("conform").format()
 end, { desc = "Format" })
+
+-- Search and replace
+vim.keymap.set('n', '<leader>sr', function() require('grug-far').open() end, { desc = 'Search and replace' })
+
+-- Snacks toggles
+vim.keymap.set('n', '<leader>tz', function() Snacks.toggle.zen() end, { desc = 'Toggle zen mode' })
+vim.keymap.set('n', '<leader>tl', function() Snacks.toggle.option('number') end, { desc = 'Toggle line numbers' })
+vim.keymap.set('n', '<leader>tr', function() Snacks.toggle.option('relativenumber') end, { desc = 'Toggle relative numbers' })
+vim.keymap.set('n', '<leader>tw', function() Snacks.toggle.option('wrap') end, { desc = 'Toggle wrap' })
+
+-- Terminal keymaps
+vim.keymap.set('n', '<leader>tt', function() Snacks.terminal.toggle() end, { desc = 'Toggle terminal' })
+vim.keymap.set('n', '<leader>tf', function() Snacks.terminal() end, { desc = 'Open terminal' })
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+-- Bufferline keymaps
+vim.keymap.set('n', '<leader><Tab>', '<Cmd>BufferLineCycleNext<CR>', { desc = 'Next buffer' })
+vim.keymap.set('n', '<leader><S-Tab>', '<Cmd>BufferLineCyclePrev<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<leader>w', '<Cmd>bdelete<CR>', { desc = 'Close buffer' })
+vim.keymap.set('n', '<leader>bp', '<Cmd>BufferLinePick<CR>', { desc = 'Pick buffer' })
+vim.keymap.set('n', '<leader>bc', '<Cmd>BufferLinePickClose<CR>', { desc = 'Pick close buffer' })
 
 -- Telescope keymaps
 local builtin = require("telescope.builtin")
@@ -30,6 +59,7 @@ map("n", "<leader>sh", ":Telescope help_tags<CR>", { desc = "Help tags" })
 map("n", "<leader>sk", ":Telescope keymaps<CR>", { desc = "Keymaps" })
 map("n", "<leader>sr", ":Telescope resume<CR>", { desc = "Resume telescope" })
 map("n", "<leader>ss", ":Telescope current_buffer_fuzzy_find<CR>", { desc = "Search current buffer" })
+map("n", "<leader>sg", ":GrugFar<CR>", { desc = "Search and replace" })
 
 -- LSP keymaps
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Open diagnostic float" })
