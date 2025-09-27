@@ -17,6 +17,15 @@ require("lazy").setup({
 	-- GitHub integration
 	"pwntester/octo.nvim",
 
+	-- GitHub copilot
+	{
+		"github/copilot.vim",
+		config = function()
+			-- Enable Copilot
+			vim.g.copilot_enabled = true
+		end,
+	},
+
 	-- Git wrapper
 
 	-- LSP
