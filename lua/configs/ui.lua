@@ -1,5 +1,16 @@
 -- Theme
-vim.cmd([[colorscheme tokyonight]])
+vim.cmd([[colorscheme onedark]])
+
+-- Onedark
+require("onedark").setup({
+	style = "darker",
+})
+
+-- Themery
+require("themery").setup({
+	themes = { "tokyonight", "onedark" },
+	livePreview = true,
+})
 
 -- Lualine
 require("lualine").setup({

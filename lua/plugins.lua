@@ -1,4 +1,5 @@
-require("lazy").setup({
+ require("lazy").setup({
+  checker = { enabled = false },
 	-- LSP
 	{
 		"williamboman/mason.nvim",
@@ -164,6 +165,16 @@ require("lazy").setup({
 		lazy = false,
 		priority = 1000,
 	},
+	{
+		"navarasu/onedark.nvim",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"zaldih/themery.nvim",
+		lazy = false,
+		priority = 1000,
+	},
 
 	-- Status line
 	"nvim-lualine/lualine.nvim",
@@ -237,5 +248,11 @@ require("lazy").setup({
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
+	},
+
+	-- Yanky
+	{
+		"gbprod/yanky.nvim",
+		opts = {},
 	},
 })
