@@ -43,7 +43,6 @@ require('plugins')
 -- Load configurations
 require('configs.snacks')
 require('configs.telescope')
-require('configs.lsp')
 require('configs.conform')
 require('configs.lint')
 require('configs.treesitter')
