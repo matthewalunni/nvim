@@ -20,4 +20,9 @@ telescope.setup({
 			ignored = true,
 		},
 	},
+	extensions = {
+		notify = {},
+	},
 })
+
+telescope.load_extension("notify")

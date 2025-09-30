@@ -1,11 +1,11 @@
- require("lazy").setup({
-  checker = { enabled = false },
+require("lazy").setup({
+	checker = { enabled = false },
 	-- LSP
 	{
 		"williamboman/mason.nvim",
 		lazy = false,
 		config = function()
-			require('mason').setup()
+			require("mason").setup()
 		end,
 	},
 
@@ -113,7 +113,6 @@
 		end,
 	},
 
-
 	-- Dashboard
 	{
 		"folke/snacks.nvim",
@@ -139,7 +138,6 @@
 			vim.g.copilot_enabled = true
 		end,
 	},
-
 
 	-- Formatting
 	{
@@ -235,6 +233,9 @@
 			})
 		end,
 	},
+
+	-- Notifications
+	"rcarriga/nvim-notify",
 
 	-- smear cursor
 	{

@@ -89,3 +89,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- Lazygit
 vim.g.lazygit_use_custom_config_file_path = 1
 vim.g.lazygit_config_file_path = vim.fn.expand("~/.config/lazygit/config.yml")
+
+-- Notify
+require("notify").setup({
+	background_colour = "#000000",
+})
+vim.notify = require("notify")
