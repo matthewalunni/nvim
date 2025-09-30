@@ -34,6 +34,14 @@ require("lazy").setup({
 
 			-- TypeScript/JavaScript language server
 			lspconfig.tsserver.setup({
+				init_options = {
+					hostInfo = "neovim",
+					preferences = {
+						includeCompletionsForModuleExports = true,
+						includeCompletionsForImportStatements = true,
+						importModuleSpecifierPreference = "relative",
+					},
+				},
 				capabilities = capabilities,
 			})
 		end,
