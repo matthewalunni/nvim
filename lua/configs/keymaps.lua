@@ -62,7 +62,7 @@ map("n", "<leader>ss", ":Telescope current_buffer_fuzzy_find<CR>", { desc = "Sea
 map("n", "<leader>sg", ":GrugFar<CR>", { desc = "Search and replace" })
 
 -- LSP keymaps
-vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Open diagnostic float" })
+vim.keymap.set("n", "<space>d", vim.diagnostic.open_float, { desc = "Open diagnostic float" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, { desc = "Set diagnostic loclist" })
@@ -125,7 +125,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.lsp.buf.code_action,
 			vim.tbl_extend("force", opts, { desc = "Code action" })
 		)
-		vim.keymap.set("n", "gr", vim.lsp.buf.references, vim.tbl_extend("force", opts, { desc = "References" }))
+		vim.keymap.set("n", "gr", builtin.lsp_references, vim.tbl_extend("force", opts, { desc = "References" }))
 	end,
 })
 
