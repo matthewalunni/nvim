@@ -1,14 +1,19 @@
 -- Theme
-vim.cmd([[colorscheme onedark]])
+vim.cmd([[colorscheme catppuccin-mocha]])
 
 -- Onedark
 require("onedark").setup({
 	style = "darker",
 })
 
+-- Catppuccin
+require("catppuccin").setup({
+	flavour = "mocha",
+})
+
 -- Themery
 require("themery").setup({
-	themes = { "tokyonight", "onedark" },
+	themes = { "tokyonight", "onedark", "catppuccin-mocha" },
 	livePreview = true,
 })
 
