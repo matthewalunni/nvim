@@ -74,11 +74,14 @@ wk.setup({
 	preset = "helix",
 })
 
--- Autopairs
-require("nvim-autopairs").setup()
+-- Mini pairs
+require("mini.pairs").setup()
 
--- Comment
-require("Comment").setup()
+-- Mini comment
+require("mini.comment").setup()
+
+-- Mini ai
+require("mini.ai").setup()
 
 -- OSC Yank
 vim.g.oscyank_term = "default"

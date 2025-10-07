@@ -3,56 +3,70 @@ local map = vim.keymap.set
 local Snacks = require("snacks")
 
 -- Yank messages to clipboard
-vim.keymap.set("n", "<leader>ym", function()
+map("n", "<leader>ym", function()
 	vim.cmd("redir @+ | silent messages | redir END")
 	vim.cmd("OSCYankReg +")
 	vim.notify("Messages copied to clipboard")
 end, { desc = "Yank messages" })
 
 -- Yanky keymaps
-vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
-vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
-vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
-vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
-vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
-vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
+map({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+map({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+map({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+map({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
+map("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
+map("n", "<c-n>", "<Plug>(YankyNextEntry)")
 
 -- Open dashboard
-vim.keymap.set("n", "<leader>h", ":lua Snacks.dashboard()<CR>", { desc = "Open dashboard" })
+map("n", "<leader>h", ":lua Snacks.dashboard()<CR>", { desc = "Open dashboard" })
 
 -- Format with conform
-vim.keymap.set("n", "<leader>fm", function()
+map("n", "<leader>fm", function()
 	require("conform").format()
 end, { desc = "Format" })
 
 -- Search and replace
-vim.keymap.set('n', '<leader>sr', function() require('grug-far').open() end, { desc = 'Search and replace' })
+map("n", "<leader>sr", function()
+	require("grug-far").open()
+end, { desc = "Search and replace" })
 
 -- Snacks toggles
-vim.keymap.set('n', '<leader>tz', function() Snacks.toggle.zen() end, { desc = 'Toggle zen mode' })
-vim.keymap.set('n', '<leader>tl', function() Snacks.toggle.option('number') end, { desc = 'Toggle line numbers' })
-vim.keymap.set('n', '<leader>tr', function() Snacks.toggle.option('relativenumber') end, { desc = 'Toggle relative numbers' })
-vim.keymap.set('n', '<leader>tw', function() Snacks.toggle.option('wrap') end, { desc = 'Toggle wrap' })
+map("n", "<leader>tz", function()
+	Snacks.toggle.zen()
+end, { desc = "Toggle zen mode" })
+map("n", "<leader>tl", function()
+	Snacks.toggle.option("number")
+end, { desc = "Toggle line numbers" })
+map("n", "<leader>tr", function()
+	Snacks.toggle.option("relativenumber")
+end, { desc = "Toggle relative numbers" })
+map("n", "<leader>tw", function()
+	Snacks.toggle.option("wrap")
+end, { desc = "Toggle wrap" })
 
 -- Terminal keymaps
-vim.keymap.set('n', '<leader>tt', function() Snacks.terminal.toggle() end, { desc = 'Toggle terminal' })
-vim.keymap.set('n', '<leader>tf', function() Snacks.terminal() end, { desc = 'Open terminal' })
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+map("n", "<leader>tt", function()
+	Snacks.terminal.toggle()
+end, { desc = "Toggle terminal" })
+map("n", "<leader>tf", function()
+	Snacks.terminal()
+end, { desc = "Open terminal" })
+map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Bufferline keymaps
-vim.keymap.set('n', '<leader><Tab>', '<Cmd>BufferLineCycleNext<CR>', { desc = 'Next buffer' })
-vim.keymap.set('n', '<leader><S-Tab>', '<Cmd>BufferLineCyclePrev<CR>', { desc = 'Previous buffer' })
-vim.keymap.set('n', '<leader>w', '<Cmd>bdelete<CR>', { desc = 'Close buffer' })
-vim.keymap.set('n', '<leader>bp', '<Cmd>BufferLinePick<CR>', { desc = 'Pick buffer' })
-vim.keymap.set('n', '<leader>bc', '<Cmd>BufferLinePickClose<CR>', { desc = 'Pick close buffer' })
+map("n", "<leader><Tab>", "<Cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
+map("n", "<leader><S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
+map("n", "<leader>w", "<Cmd>bdelete<CR>", { desc = "Close buffer" })
+map("n", "<leader>bp", "<Cmd>BufferLinePick<CR>", { desc = "Pick buffer" })
+map("n", "<leader>bc", "<Cmd>BufferLinePickClose<CR>", { desc = "Pick close buffer" })
 
 -- Telescope keymaps
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
-vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Buffers" })
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
-vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Recent files" })
+map("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
+map("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
+map("n", "<leader>fb", builtin.buffers, { desc = "Buffers" })
+map("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
+map("n", "<leader>fr", builtin.oldfiles, { desc = "Recent files" })
 map("n", "<leader>fs", ":Telescope current_buffer_fuzzy_find<CR>", { desc = "Search current buffer" })
 map("n", "<leader>c", ":Telescope commands<CR>", { desc = "Commands" })
 map("n", "<leader>sh", ":Telescope help_tags<CR>", { desc = "Help tags" })
@@ -62,10 +76,10 @@ map("n", "<leader>ss", ":Telescope current_buffer_fuzzy_find<CR>", { desc = "Sea
 map("n", "<leader>sg", ":GrugFar<CR>", { desc = "Search and replace" })
 
 -- LSP keymaps
-vim.keymap.set("n", "<space>d", vim.diagnostic.open_float, { desc = "Open diagnostic float" })
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, { desc = "Set diagnostic loclist" })
+map("n", "<space>d", vim.diagnostic.open_float, { desc = "Open diagnostic float" })
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+map("n", "<space>q", vim.diagnostic.setloclist, { desc = "Set diagnostic loclist" })
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -77,68 +91,41 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		-- Buffer local mappings
 		local opts = { buffer = ev.buf }
-		vim.keymap.set(
-			"n",
-			"gD",
-			vim.lsp.buf.declaration,
-			vim.tbl_extend("force", opts, { desc = "Go to declaration" })
-		)
-		vim.keymap.set("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover" }))
-		vim.keymap.set(
-			"n",
-			"gi",
-			vim.lsp.buf.implementation,
-			vim.tbl_extend("force", opts, { desc = "Go to implementation" })
-		)
-		vim.keymap.set(
-			"n",
-			"<C-k>",
-			vim.lsp.buf.signature_help,
-			vim.tbl_extend("force", opts, { desc = "Signature help" })
-		)
-		vim.keymap.set(
+		map("n", "gD", vim.lsp.buf.declaration, vim.tbl_extend("force", opts, { desc = "Go to declaration" }))
+		map("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
+		map("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover" }))
+		map("n", "gi", vim.lsp.buf.implementation, vim.tbl_extend("force", opts, { desc = "Go to implementation" }))
+		map("n", "<C-k>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature help" }))
+		map(
 			"n",
 			"<space>wa",
 			vim.lsp.buf.add_workspace_folder,
 			vim.tbl_extend("force", opts, { desc = "Add workspace folder" })
 		)
-		vim.keymap.set(
+		map(
 			"n",
 			"<space>wr",
 			vim.lsp.buf.remove_workspace_folder,
 			vim.tbl_extend("force", opts, { desc = "Remove workspace folder" })
 		)
-		vim.keymap.set("n", "<space>wl", function()
+		map("n", "<space>wl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, vim.tbl_extend("force", opts, { desc = "List workspace folders" }))
-		vim.keymap.set(
-			"n",
-			"<space>D",
-			vim.lsp.buf.type_definition,
-			vim.tbl_extend("force", opts, { desc = "Type definition" })
-		)
-		vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename" }))
-		vim.keymap.set(
-			"n",
-			"<space>ca",
-			vim.lsp.buf.code_action,
-			vim.tbl_extend("force", opts, { desc = "Code action" })
-		)
-		vim.keymap.set("n", "gr", builtin.lsp_references, vim.tbl_extend("force", opts, { desc = "References" }))
+		map("n", "<space>D", vim.lsp.buf.type_definition, vim.tbl_extend("force", opts, { desc = "Type definition" }))
+		map("n", "<space>rn", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename" }))
+		map("n", "<space>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code action" }))
+		map("n", "gr", builtin.lsp_references, vim.tbl_extend("force", opts, { desc = "References" }))
 	end,
 })
 
 -- Snacks explorer keymap
-vim.keymap.set(
-	"n",
-	"<leader>e",
-	":lua Snacks.explorer()<CR>",
-	{ noremap = true, silent = true, desc = "Toggle file explorer" }
-)
+map("n", "<leader>e", ":lua Snacks.explorer()<CR>", { noremap = true, silent = true, desc = "Toggle file explorer" })
+
+-- Oil keymap
+map("n", "<leader>ol", ":Oil<CR>", { desc = "Oil file explorer" })
 
 -- Git keymaps
-vim.keymap.set("n", "<leader>lg", ":LazyGit<CR>", { desc = "LazyGit" })
+map("n", "<leader>lg", ":LazyGit<CR>", { desc = "LazyGit" })
 
 -- ========================
 -- Copilot & Copilot Chat (requires Copilot + Chat plugin)

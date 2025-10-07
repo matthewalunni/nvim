@@ -205,11 +205,11 @@ require("lazy").setup({
 	-- Keybindings helper
 	"folke/which-key.nvim",
 
-	-- Commenting
-	"numToStr/Comment.nvim",
-
-	-- Autopairs
-	"windwp/nvim-autopairs",
+	-- Mini
+	{
+		"echasnovski/mini.nvim",
+		version = false,
+	},
 
 	-- Clipboard
 	"ojroques/vim-oscyank",
@@ -227,24 +227,45 @@ require("lazy").setup({
 	{
 		"folke/noice.nvim",
 		dependencies = { "MunifTanjim/nui.nvim" },
-		config = function()
-			require("noice").setup({
-				lsp = {
-					override = {
-						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-						["vim.lsp.util.stylize_markdown"] = true,
-						["cmp.entry.get_documentation"] = true,
+			config = function()
+				require("noice").setup({
+					lsp = {
+						override = {
+							["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+							["vim.lsp.util.stylize_markdown"] = true,
+							["cmp.entry.get_documentation"] = true,
+						},
 					},
-				},
-				presets = {
-					bottom_search = true,
-					command_palette = true,
-					long_message_to_split = true,
-					inc_rename = false,
-					lsp_doc_border = false,
-				},
-			})
-		end,
+					presets = {
+						bottom_search = true,
+						command_palette = true,
+						long_message_to_split = true,
+						inc_rename = false,
+						lsp_doc_border = false,
+					},
+					ui = {
+						confirm = "confirm",
+					},
+					views = {
+						confirm = {
+							backend = "popup",
+							relative = "editor",
+							align = "center",
+							size = {
+								width = "auto",
+								height = "auto",
+							},
+							border = {
+								style = "rounded",
+							},
+							position = {
+								row = "50%",
+								col = "50%",
+							},
+						},
+					},
+				})
+			end,
 	},
 
 	-- Notifications
@@ -268,6 +289,19 @@ require("lazy").setup({
 	-- Yanky
 	{
 		"gbprod/yanky.nvim",
+		opts = {},
+	},
+
+	-- Oil
+	{
+		"stevearc/oil.nvim",
+		opts = {},
+	},
+
+	-- Hardtime
+	{
+		"m4xshen/hardtime.nvim",
+		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
 		opts = {},
 	},
 })
