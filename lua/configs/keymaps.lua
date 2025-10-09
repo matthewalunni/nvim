@@ -160,4 +160,3 @@ map("n", "<leader>ioc", ":Octo issue close<CR>", { desc = "Close issue" })
 
 -- Repo actions
 map("n", "<leader>ogr", ":Octo repo browse<CR>", { desc = "Browse repo" })
-map("n", "<leader>o", ":Octo<CR>", { desc = "Octo" })
