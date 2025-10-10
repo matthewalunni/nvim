@@ -44,6 +44,9 @@ map("n", "<leader>tw", function()
 	Snacks.toggle.option("wrap")
 end, { desc = "Toggle wrap" })
 
+-- Theme switcher
+map("n", "<leader>th", ":Themery<CR>", { desc = "Switch theme" })
+
 -- Terminal keymaps
 map("n", "<leader>tt", function()
 	Snacks.terminal.toggle()
