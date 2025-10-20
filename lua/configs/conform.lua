@@ -16,6 +16,7 @@ require('conform').setup({
     bash = { 'shfmt' },
     sh = { 'shfmt' },
     zsh = { 'shfmt' },
+    go = { 'goimports' },
   },
   format_on_save = {
     timeout_ms = 500,

@@ -44,6 +44,11 @@ require("lazy").setup({
 				},
 				capabilities = capabilities,
 			})
+
+			-- Go language server
+			lspconfig.gopls.setup({
+				capabilities = capabilities,
+			})
 		end,
 	},
 
