@@ -207,7 +207,7 @@ require("lazy").setup({
 
 	-- Mini
 	{
-		"echasnovski/mini.nvim",
+		"nvim-mini/mini.nvim",
 		version = false,
 	},
 
@@ -295,7 +295,11 @@ require("lazy").setup({
 	-- Oil
 	{
 		"stevearc/oil.nvim",
-		opts = {},
+		opts = {
+			view_options = {
+				show_hidden = true,
+			},
+		},
 	},
 
 	-- Hardtime

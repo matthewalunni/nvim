@@ -34,7 +34,12 @@ telescope.setup({
 		find_files = {
 			hidden = true,
 			no_ignore = true,
-			ignored = true,
+			search_dirs = { "." },
+		},
+		live_grep = {
+			hidden = true,
+			no_ignore = true,
+			search_dirs = { "." },
 		},
 	},
 	extensions = {
