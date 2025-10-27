@@ -63,6 +63,10 @@ map("n", "<leader>w", "<Cmd>bdelete<CR>", { desc = "Close buffer" })
 map("n", "<leader>bp", "<Cmd>BufferLinePick<CR>", { desc = "Pick buffer" })
 map("n", "<leader>bc", "<Cmd>BufferLinePickClose<CR>", { desc = "Pick close buffer" })
 
+-- Window splits
+map("n", "<leader>vs", ":vsplit<CR>", { desc = "Vertical split" })
+map("n", "<leader>hs", ":split<CR>", { desc = "Horizontal split" })
+
 -- Telescope keymaps
 local builtin = require("telescope.builtin")
 map("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
@@ -77,6 +81,10 @@ map("n", "<leader>sk", ":Telescope keymaps<CR>", { desc = "Keymaps" })
 map("n", "<leader>sr", ":Telescope resume<CR>", { desc = "Resume telescope" })
 map("n", "<leader>ss", ":Telescope current_buffer_fuzzy_find<CR>", { desc = "Search current buffer" })
 map("n", "<leader>sg", ":GrugFar<CR>", { desc = "Search and replace" })
+
+-- Open files in splits
+map("n", "<leader>vf", ":vsplit | Telescope find_files<CR>", { desc = "Find files in vertical split" })
+map("n", "<leader>hf", ":split | Telescope find_files<CR>", { desc = "Find files in horizontal split" })
 
 -- LSP keymaps
 map("n", "<space>d", vim.diagnostic.open_float, { desc = "Open diagnostic float" })
@@ -128,7 +136,6 @@ map("n", "<leader>e", ":lua Snacks.explorer()<CR>", { noremap = true, silent = t
 map("n", "<leader>ol", ":Oil<CR>", { desc = "Oil file explorer" })
 
 -- Git keymaps
-map("n", "<leader>lg", ":LazyGit<CR>", { desc = "LazyGit" })
 
 -- ========================
 -- Copilot & Copilot Chat (requires Copilot + Chat plugin)

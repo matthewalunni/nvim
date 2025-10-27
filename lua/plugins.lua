@@ -282,14 +282,11 @@ require("lazy").setup({
 		opts = {},
 	},
 
-	-- Lazygit
-	{
-		"kdheepak/lazygit.nvim",
-		cmd = "LazyGit",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-	},
+	-- Fugitive
+	"tpope/vim-fugitive",
+
+	-- Git worktree
+	"ThePrimeagen/git-worktree.nvim",
 
 	-- Yanky
 	{
