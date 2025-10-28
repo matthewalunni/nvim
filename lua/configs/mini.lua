@@ -11,8 +11,5 @@ require("mini.pairs").setup()
 -- Mini comment
 require("mini.comment").setup()
 
--- Mini ai
-require("mini.ai").setup()
-
 -- Mini surround
 require("mini.surround").setup()
