@@ -9,6 +9,7 @@ require("onedark").setup({
 -- Catppuccin
 require("catppuccin").setup({
 	flavour = "mocha",
+	transparent_background = true,
 })
 
 -- Themery
