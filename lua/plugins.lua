@@ -196,6 +196,12 @@ require("lazy").setup({
 	-- Status line
 	"nvim-lualine/lualine.nvim",
 
+	-- Undotree
+	{
+		"mbbill/undotree",
+		cmd = { "UndotreeToggle", "UndotreeShow" },
+	},
+
 	-- Bufferline
 	{
 		"akinsho/bufferline.nvim",

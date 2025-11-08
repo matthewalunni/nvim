@@ -170,3 +170,6 @@ map("n", "<leader>ioc", ":Octo issue close<CR>", { desc = "Close issue" })
 
 -- Repo actions
 map("n", "<leader>ogr", ":Octo repo browse<CR>", { desc = "Browse repo" })
+
+-- Undotree mapping
+map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", { desc = "Toggle Undotree" })
