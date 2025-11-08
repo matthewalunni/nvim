@@ -310,4 +310,14 @@ require("lazy").setup({
 		event = "VeryLazy",
 		config = {},
 	},
+
+	-- Render Markdown plugin
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		ft = { "markdown" },
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			pcall(require, "render-markdown").setup({})
+		end,
+	},
 })
