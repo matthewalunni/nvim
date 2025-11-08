@@ -45,17 +45,7 @@ map("n", "<leader>tw", function()
 end, { desc = "Toggle wrap" })
 
 -- Theme switcher
-map("n", "<leader>th", ":Themery<CR>", { desc = "Switch theme" })
-
--- Terminal keymaps
-map("n", "<leader>tt", function()
-	Snacks.terminal.toggle()
-end, { desc = "Toggle terminal" })
-map("n", "<leader>tf", function()
-	Snacks.terminal()
-end, { desc = "Open terminal" })
-map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
+map("n", "<leader>tm", ":Themery<CR>", { desc = "Switch theme" })
 -- Bufferline keymaps
 map("n", "<leader><Tab>", "<Cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
 map("n", "<leader><S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
@@ -173,3 +163,10 @@ map("n", "<leader>ogr", ":Octo repo browse<CR>", { desc = "Browse repo" })
 
 -- Undotree mapping
 map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", { desc = "Toggle Undotree" })
+
+-- Added terminal split mappings
+map("n", "<leader>tv", ":leftabove vsplit | terminal<CR>", { desc = "Open terminal in left vertical split" })
+map("n", "<leader>th", ":aboveleft split | terminal<CR>", { desc = "Open terminal in top horizontal split" })
+
+-- Terminal keymaps
+map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
