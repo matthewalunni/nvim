@@ -127,6 +127,12 @@ map("n", "<leader>ol", ":Oil<CR>", { desc = "Oil file explorer" })
 
 -- Git keymaps
 
+-- Diffview keymaps
+map("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "Open Diffview" })
+map("n", "<leader>gq", ":DiffviewClose<CR>", { desc = "Close Diffview" })
+map("n", "<leader>gf", ":DiffviewToggleFiles<CR>", { desc = "Toggle Diffview files panel" })
+map("n", "<leader>gH", ":DiffviewFileHistory<CR>", { desc = "Show file history (Diffview)" })
+
 -- ========================
 -- Copilot & Copilot Chat (requires Copilot + Chat plugin)
 -- ========================
