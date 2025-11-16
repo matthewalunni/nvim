@@ -108,6 +108,7 @@ require("snacks").setup({
 		},
 	},
 	lazygit = {},
+    gh={},
 })
 
 vim.notify = require("snacks").notify
