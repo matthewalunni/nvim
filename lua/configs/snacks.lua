@@ -18,8 +18,7 @@ require("snacks").setup({
 			---@type snacks.dashboard.Item[]
 			keys = {
 				{ icon = " ", key = "f", desc = "Find File", action = "<leader>ff" },
-				{ icon = " ", key = "s", desc = "Find Text", action = "<leader>fg" },
-				{ icon = "󰛔", key = "S", desc = "Find and Replace", action = "<leader>sg" },
+				{ icon = " ", key = "s", desc = "Find Text", action = "<leader>sg" },
 				{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
 
 				{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
