@@ -85,20 +85,10 @@ require("snacks").setup({
 			{ section = "startup" },
 		},
 	},
-	explorer = {
-		enabled = true,
-	},
 	indent = {
 		enabled = true,
 	},
-		picker = {
-			sources = {
-				explorer = {
-					hidden = true,
-					ignored = true,
-				},
-			},
-		},
+
 	view = {
 		backend = "popup", -- could also be "mini", "notify", etc.
 		timeout = 2000, -- duration in milliseconds
@@ -108,6 +98,16 @@ require("snacks").setup({
 	input = {},
 	notifier = {},
 	terminal = {},
+	picker = {
+		layout = "default", -- options are "select", "dropdown", "telescope", "ivy", "ivy_split"
+		sources = {
+			explorer = {
+				hidden = true,
+				ignored = true,
+			},
+		},
+	},
+	lazygit = {},
 })
 
 vim.notify = require("snacks").notify

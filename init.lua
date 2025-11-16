@@ -42,12 +42,10 @@ require("plugins")
 
 -- Load configurations
 require("configs.snacks")
-require("configs.telescope")
 require("configs.conform")
 require("configs.lint")
 require("configs.treesitter")
 require("configs.bufferline")
 require("configs.ui")
-require("configs.git")
 require("configs.keymaps")
 require("configs.mini")

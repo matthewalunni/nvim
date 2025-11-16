@@ -133,16 +133,6 @@ require("lazy").setup({
 		priority = 1000,
 	},
 
-	-- Fuzzy finder
-	{
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.5",
-		dependencies = { "nvim-lua/plenary.nvim" },
-	},
-
-	-- GitHub integration
-	"pwntester/octo.nvim",
-
 	-- GitHub copilot
 	{
 		"github/copilot.vim",
@@ -292,9 +282,6 @@ require("lazy").setup({
 	-- Fugitive
 	"tpope/vim-fugitive",
 
-	-- Git worktree
-	"ThePrimeagen/git-worktree.nvim",
-
 	-- Diffview (git diffs)
 	{
 		"sindrets/diffview.nvim",
@@ -333,8 +320,8 @@ require("lazy").setup({
 		"MeanderingProgrammer/render-markdown.nvim",
 		ft = { "markdown" },
 		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			pcall(require, "render-markdown").setup({})
-		end,
+		-- config = function()
+		-- 	pcall(require, "render-markdown").setup({})
+		-- end,
 	},
 })
