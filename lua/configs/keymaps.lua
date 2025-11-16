@@ -99,9 +99,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
--- Oil keymap
-map("n", "<leader>ol", ":Oil<CR>", { desc = "Oil file explorer" })
-
 -- ========================
 -- Snacks Picker Keymaps
 -- ========================

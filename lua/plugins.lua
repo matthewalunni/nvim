@@ -298,16 +298,6 @@ require("lazy").setup({
 		opts = {},
 	},
 
-	-- Oil
-	{
-		"stevearc/oil.nvim",
-		opts = {
-			view_options = {
-				show_hidden = true,
-			},
-		},
-	},
-
 	-- Precognition (local prediction enhancement)
 	{
 		"tris203/precognition.nvim",
