@@ -108,7 +108,7 @@ map("n", "<leader>,", ":lua Snacks.picker.buffers()<CR>", { desc = "Buffers" })
 map("n", "<leader>/", ":lua Snacks.picker.grep()<CR>", { desc = "Grep" })
 map("n", "<leader>:", ":lua Snacks.picker.command_history()<CR>", { desc = "Command History" })
 map("n", "<leader>n", ":lua Snacks.picker.notifications()<CR>", { desc = "Notification History" })
-map("n", "<leader>e", ":lua Snacks.explorer()<CR>", { desc = "File Explorer" })
+map("n", "<leader>e", ":Oil<CR>", { desc = "File Explorer" })
 -- find
 map("n", "<leader>fb", ":lua Snacks.picker.buffers()<CR>", { desc = "Buffers" })
 map("n", "<leader>fc", function()
