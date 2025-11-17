@@ -142,6 +142,15 @@ require("lazy").setup({
 		end,
 	},
 
+	-- Quickfix improvements
+	{
+		"stevearc/quicker.nvim",
+		ft = "qf",
+		config = function()
+			require("quicker").setup()
+		end,
+	},
+
 	-- GitHub copilot
 	{
 		"github/copilot.vim",

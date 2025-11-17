@@ -109,6 +109,15 @@ map("n", "<leader>/", ":lua Snacks.picker.grep()<CR>", { desc = "Grep" })
 map("n", "<leader>:", ":lua Snacks.picker.command_history()<CR>", { desc = "Command History" })
 map("n", "<leader>n", ":lua Snacks.picker.notifications()<CR>", { desc = "Notification History" })
 map("n", "<leader>e", ":Oil<CR>", { desc = "File Explorer" })
+
+-- Quicker quickfix toggles
+map("n", "<leader>q", function()
+	require("quicker").toggle()
+end, { desc = "Toggle quickfix" })
+map("n", "<leader>l", function()
+	require("quicker").toggle({ loclist = true })
+end, { desc = "Toggle loclist" })
+
 -- find
 map("n", "<leader>fb", ":lua Snacks.picker.buffers()<CR>", { desc = "Buffers" })
 map("n", "<leader>fc", function()
