@@ -297,6 +297,13 @@ require("lazy").setup({
 		opts = {},
 	},
 
+	-- Motion / flash
+	{
+		"folke/flash.nvim",
+		event = { "VeryLazy" },
+		opts = {},
+	},
+
 	-- Fugitive
 	"tpope/vim-fugitive",
 
