@@ -339,4 +339,14 @@ require("lazy").setup({
 		-- 	pcall(require, "render-markdown").setup({})
 		-- end,
 	},
+	{
+		"norcalli/nvim-colorizer.lua",
+		event = "BufReadPre",
+		config = function()
+			local ok, colorizer = pcall(require, "colorizer")
+			if ok and colorizer and colorizer.setup then
+				colorizer.setup()
+			end
+		end,
+	},
 })
