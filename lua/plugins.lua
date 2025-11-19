@@ -158,7 +158,7 @@ require("lazy").setup({
 		event = "InsertEnter",
 		config = function()
 			require("copilot").setup({
-				suggestion = { enabled = true, auto_trigger = true, keymap = { accept = "<C-l>" } },
+				suggestion = { enabled = true, auto_trigger = true, keymap = { accept = "<Tab>" } },
 				panel = { enabled = true },
 				auth = {
 					auto = false,
