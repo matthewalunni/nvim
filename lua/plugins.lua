@@ -160,6 +160,9 @@ require("lazy").setup({
 			require("copilot").setup({
 				suggestion = { enabled = true, auto_trigger = true, keymap = { accept = "<C-l>" } },
 				panel = { enabled = true },
+				auth = {
+					auto = false,
+				},
 			})
 		end,
 	},
