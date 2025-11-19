@@ -151,12 +151,16 @@ require("lazy").setup({
 		end,
 	},
 
-	-- GitHub copilot
+	-- Copilot (zbirenbaum/copilot.lua)
 	{
-		"github/copilot.vim",
+		"zbirenbaum/copilot.lua",
+		cmd = { "Copilot", "CopilotSetup", "CopilotAccept" },
+		event = "InsertEnter",
 		config = function()
-			-- Enable Copilot
-			vim.g.copilot_enabled = true
+			require("copilot").setup({
+				suggestion = { enabled = true, auto_trigger = true, keymap = { accept = "<C-l>" } },
+				panel = { enabled = true },
+			})
 		end,
 	},
 
