@@ -14,26 +14,38 @@ require("lazy").setup({
 		"neovim/nvim-lspconfig",
 		dependencies = { "williamboman/mason.nvim", "hrsh7th/cmp-nvim-lsp" },
 		config = function()
-			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+			-- Configure LSP servers using the new Neovim 0.11+ API
+			-- This avoids requiring the deprecated "lspconfig" module and
+			-- uses `vim.lsp.config` / `vim.lsp.enable` per the migration guide.
+
 			-- Lua language server
-			lspconfig.lua_ls.setup({
+			vim.lsp.config("lua_ls", {
 				capabilities = capabilities,
 				settings = {
 					Lua = {
 						format = { enable = true },
+						completion = { callSnippet = "Replace" },
+						diagnostics = {
+							globals = { "vim" },
+							disable = { "missing-fields" },
+						},
+						workspace = {
+							library = vim.api.nvim_get_runtime_file("", true),
+							checkThirdParty = false,
+						},
 					},
 				},
 			})
+			vim.lsp.enable("lua_ls")
 
 			-- Python language server
-			lspconfig.pyright.setup({
-				capabilities = capabilities,
-			})
+			vim.lsp.config("pyright", { capabilities = capabilities })
+			vim.lsp.enable("pyright")
 
 			-- TypeScript/JavaScript language server
-			lspconfig.tsserver.setup({
+			vim.lsp.config("tsserver", {
 				init_options = {
 					hostInfo = "neovim",
 					preferences = {
@@ -44,11 +56,11 @@ require("lazy").setup({
 				},
 				capabilities = capabilities,
 			})
+			vim.lsp.enable("tsserver")
 
 			-- Go language server
-			lspconfig.gopls.setup({
-				capabilities = capabilities,
-			})
+			vim.lsp.config("gopls", { capabilities = capabilities })
+			vim.lsp.enable("gopls")
 		end,
 	},
 
