@@ -46,6 +46,7 @@ require("lazy").setup({
 
 			-- TypeScript/JavaScript language server
 			vim.lsp.config("tsserver", {
+                cmd = { "typescript-language-server", "--stdio" },
 				init_options = {
 					hostInfo = "neovim",
 					preferences = {
