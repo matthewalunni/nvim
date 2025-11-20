@@ -147,7 +147,9 @@ require("lazy").setup({
 		"stevearc/quicker.nvim",
 		ft = "qf",
 		config = function()
-			require("quicker").setup()
+			require("quicker").setup({
+				preview = true,
+			})
 		end,
 	},
 
