@@ -11,36 +11,12 @@ require("snacks").setup({
 		view = "mini", -- or "notify" if you use `nvim-notify`
 	},
 	dashboard = {
-		preset = {
-			-- Used by the `keys` section to show keymaps.
-			-- Set your custom keymaps here.
-			-- When using a function, the `items` argument are the default keymaps.
-			---@type snacks.dashboard.Item[]
-			keys = {
-				{ icon = " ", key = "f", desc = "Find File", action = "<leader>ff" },
-				{ icon = " ", key = "s", desc = "Find Text", action = "<leader>sg" },
-				{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-
-				{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-				{
-					icon = " ",
-					key = "c",
-					desc = "Config",
-					action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
-				},
-				{ icon = "", key = "g", desc = "Git Actions", action = "<leader>lg" },
-
-				{ icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-				{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
-			},
-		},
+	
 		sections = {
-			{ section = "header" },
-			{ pane = 1, section = "keys", gap = 1, padding = 1 },
-			{ pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-			{ pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+			{ pane = 1, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+			{ pane = 1, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
 			{
-				pane = 2,
+				pane = 1,
 				icon = " ",
 				desc = "Browse Repo",
 				padding = 1,
@@ -71,7 +47,7 @@ require("snacks").setup({
 				}
 				return vim.tbl_map(function(cmd)
 					return vim.tbl_extend("force", {
-						pane = 2,
+						pane = 1,
 						section = "terminal",
 						enabled = in_git,
 						padding = 1,
