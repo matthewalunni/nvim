@@ -11,9 +11,17 @@ require("snacks").setup({
 		view = "mini", -- or "notify" if you use `nvim-notify`
 	},
 	dashboard = {
-	
+
 		sections = {
 			{ pane = 1, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+			{
+				pane = 1,
+				icon = " ",
+				title = "Config",
+				desc = "~/.config/nvim",
+				padding = 1,
+				action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+			},
 			{ pane = 1, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
 			{
 				pane = 1,
@@ -83,7 +91,7 @@ require("snacks").setup({
 		},
 	},
 	lazygit = {},
-    gh={},
+	gh = {},
 })
 
 vim.notify = require("snacks").notify
