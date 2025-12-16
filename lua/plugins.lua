@@ -345,13 +345,6 @@ require("lazy").setup({
 		opts = {},
 	},
 
-	-- Precognition (local prediction enhancement)
-	{
-		"tris203/precognition.nvim",
-		event = "VeryLazy",
-		config = {},
-	},
-
 	-- Render Markdown plugin
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
