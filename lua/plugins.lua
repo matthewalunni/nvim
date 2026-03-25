@@ -370,13 +370,9 @@ require("lazy").setup({
 	},
 
 	{
-		"matthewalunni/nvim-gitmovie",
+		"matthewalunni/gitflix.nvim",
 		config = function()
 			-- Optional configuration
 		end,
-		keys = {
-			{ "<leader>gms", "<cmd>GitMovieStart<cr>", desc = "Start GitMovie" },
-			{ "<leader>gmt", "<cmd>GitMovieStop<cr>", desc = "Stop GitMovie" },
-		},
 	},
 })
