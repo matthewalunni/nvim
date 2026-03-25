@@ -46,7 +46,7 @@ require("lazy").setup({
 
 			-- TypeScript/JavaScript language server
 			vim.lsp.config("tsserver", {
-                cmd = { "typescript-language-server", "--stdio" },
+				cmd = { "typescript-language-server", "--stdio" },
 				init_options = {
 					hostInfo = "neovim",
 					preferences = {
@@ -152,10 +152,10 @@ require("lazy").setup({
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("oil").setup({
-                view_options = {
-                    show_hidden = true,
-                },
-            })
+				view_options = {
+					show_hidden = true,
+				},
+			})
 		end,
 	},
 
@@ -374,5 +374,8 @@ require("lazy").setup({
 		config = function()
 			-- Optional configuration
 		end,
+		keys = {
+			{ "<leader>gf", "<cmd>Gitflix<cr>", desc = "Gitflix" },
+		},
 	},
 })
