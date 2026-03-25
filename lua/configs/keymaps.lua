@@ -233,7 +233,6 @@ end, { desc = "Switch Git Worktree (pure git)" })
 -- Diffview keymaps
 map("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "Open Diffview" })
 map("n", "<leader>gq", ":DiffviewClose<CR>", { desc = "Close Diffview" })
-map("n", "<leader>gf", ":DiffviewToggleFiles<CR>", { desc = "Toggle Diffview files panel" })
 map("n", "<leader>gH", ":DiffviewFileHistory<CR>", { desc = "Show file history (Diffview)" })
 
 -- ========================
