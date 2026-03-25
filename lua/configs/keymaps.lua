@@ -134,7 +134,6 @@ map("n", "<leader>gL", ":lua Snacks.picker.git_log_line()<CR>", { desc = "Git Lo
 map("n", "<leader>gs", ":lua Snacks.picker.git_status()<CR>", { desc = "Git Status" })
 map("n", "<leader>gS", ":lua Snacks.picker.git_stash()<CR>", { desc = "Git Stash" })
 map("n", "<leader>gvd", ":lua Snacks.picker.git_diff()<CR>", { desc = "Git Diff (Hunks)" })
-map("n", "<leader>gf", ":lua Snacks.picker.git_log_file()<CR>", { desc = "Git Log File" })
 -- gh
 map("n", "<leader>gi", ":lua Snacks.picker.gh_issue()<CR>", { desc = "GitHub Issues (open)" })
 map("n", "<leader>gI", function()
