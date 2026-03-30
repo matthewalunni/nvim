@@ -1,4 +1,7 @@
 -- basic mini configurations
+-- Mini icons
+require("mini.icons").setup()
+
 -- Mini basics
 require("mini.basics").setup()
 

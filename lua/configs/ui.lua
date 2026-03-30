@@ -14,15 +14,25 @@ require("catppuccin").setup({
 
 -- Themery
 require("themery").setup({
-	themes = { "tokyonight", "onedark", "catppuccin-mocha" },
+	themes = { "tokyonight", "onedark", "catppuccin-mocha", "earthcode" },
 	livePreview = true,
 })
 
 -- Lualine
-require("lualine").setup({
-	options = {
-		theme = "tokyonight",
-	},
+local function lualine_theme()
+	local cs = vim.g.colors_name
+	if cs == "earthcode" then
+		return require("earthcode.integrations.lualine").theme()
+	end
+	return cs or "auto"
+end
+
+require("lualine").setup({ options = { theme = lualine_theme() } })
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+	callback = function()
+		require("lualine").setup({ options = { theme = lualine_theme() } })
+	end,
 })
 
 -- Gitsigns
