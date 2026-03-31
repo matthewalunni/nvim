@@ -369,11 +369,28 @@ require("lazy").setup({
 		end,
 	},
 
+	-- Earthcode
+	{
+		"matthewalunni/earthcode.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.cmd.colorscheme("earthcode")
+		end,
+	},
+
+	-- nit.nvim
+	{
+		"matthewalunni/nit.nvim",
+		config = function()
+			require("nit").setup()
+		end,
+	},
+
+	-- Remote (restore when publishing)
 	{
 		"matthewalunni/gitflix.nvim",
-		config = function()
-			-- Optional configuration
-		end,
+		config = function() end,
 		keys = {
 			{ "<leader>gf", "<cmd>Gitflix<cr>", desc = "Gitflix" },
 		},
