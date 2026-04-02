@@ -37,7 +37,7 @@ end, { desc = "Toggle zen mode" })
 map("n", "<leader>tl", function()
 	Snacks.toggle.option("number")
 end, { desc = "Toggle line numbers" })
-map("n", "<leader>tr", function()
+map("n", "<leader>tR", function()
 	Snacks.toggle.option("relativenumber")
 end, { desc = "Toggle relative numbers" })
 map("n", "<leader>tw", function()
@@ -61,7 +61,6 @@ map("n", "<leader>hs", ":split<CR>", { desc = "Horizontal split" })
 map("n", "<space>d", vim.diagnostic.open_float, { desc = "Open diagnostic float" })
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
-map("n", "<space>q", vim.diagnostic.setloclist, { desc = "Set diagnostic loclist" })
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -73,8 +72,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		-- Buffer local mappings
 		local opts = { buffer = ev.buf }
-		map("n", "gD", vim.lsp.buf.declaration, vim.tbl_extend("force", opts, { desc = "Go to declaration" }))
-		map("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
 		map("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover" }))
 		map("n", "gi", vim.lsp.buf.implementation, vim.tbl_extend("force", opts, { desc = "Go to implementation" }))
 		map("n", "<C-k>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature help" }))
@@ -104,9 +101,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- ========================
 
 map("n", "<leader><space>", ":lua Snacks.picker.smart()<CR>", { desc = "Smart Find Files" })
-map("n", "<leader>,", ":lua Snacks.picker.buffers()<CR>", { desc = "Buffers" })
-map("n", "<leader>/", ":lua Snacks.picker.grep()<CR>", { desc = "Grep" })
-map("n", "<leader>:", ":lua Snacks.picker.command_history()<CR>", { desc = "Command History" })
 map("n", "<leader>n", ":lua Snacks.picker.notifications()<CR>", { desc = "Notification History" })
 map("n", "<leader>e", ":Oil<CR>", { desc = "File Explorer" })
 
@@ -152,7 +146,6 @@ map({ "n", "x" }, "<leader>sw", ":lua Snacks.picker.grep_word()<CR>", { desc = "
 map("n", '<leader>s"', ":lua Snacks.picker.registers()<CR>", { desc = "Registers" })
 map("n", "<leader>s/", ":lua Snacks.picker.search_history()<CR>", { desc = "Search History" })
 map("n", "<leader>sa", ":lua Snacks.picker.autocmds()<CR>", { desc = "Autocmds" })
-map("n", "<leader>sb", ":lua Snacks.picker.lines()<CR>", { desc = "Buffer Lines" })
 map("n", "<leader>sc", ":lua Snacks.picker.command_history()<CR>", { desc = "Command History" })
 map("n", "<leader>sC", ":lua Snacks.picker.commands()<CR>", { desc = "Commands" })
 map("n", "<leader>sd", ":lua Snacks.picker.diagnostics()<CR>", { desc = "Diagnostics" })
@@ -181,7 +174,7 @@ map("n", "gai", ":lua Snacks.picker.lsp_incoming_calls()<CR>", { desc = "C[a]lls
 map("n", "gao", ":lua Snacks.picker.lsp_outgoing_calls()<CR>", { desc = "C[a]lls Outgoing" })
 map("n", "<leader>ss", ":lua Snacks.picker.lsp_symbols()<CR>", { desc = "LSP Symbols" })
 map("n", "<leader>sS", ":lua Snacks.picker.lsp_workspace_symbols()<CR>", { desc = "LSP Workspace Symbols" })
-map("n", "<leader>lg", ":lua Snacks.lazygit()<CR>", { desc = "LSP Code Actions" })
+map("n", "<leader>lg", ":lua Snacks.lazygit()<CR>", { desc = "LazyGit" })
 -- command to search through git worktrees in a picker
 map("n", "<leader>gw", function()
 	-- Get raw worktree data
@@ -235,26 +228,19 @@ map("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "Open Diffview" })
 map("n", "<leader>gq", ":DiffviewClose<CR>", { desc = "Close Diffview" })
 map("n", "<leader>gH", ":DiffviewFileHistory<CR>", { desc = "Show file history (Diffview)" })
 
--- ========================
--- Copilot & Copilot Chat (requires Copilot + Chat plugin)
--- ========================
-map("n", "<leader>cc", ":Copilot Chat<CR>", { desc = "Copilot Chat" })
-map("n", "<leader>cq", ":Copilot Chat<CR>", { desc = "Copilot Chat quick" })
-map("v", "<leader>ce", ":Copilot Chat<CR>", { desc = "Explain code" })
-map("v", "<leader>ct", ":Copilot Chat<CR>", { desc = "Generate tests" })
-map("v", "<leader>cd", ":Copilot Chat<CR>", { desc = "Generate docstrings" })
-map("n", "<C-e>", ":Copilot#Accept()<CR>", { desc = "Accept Copilot suggestion" })
-map("n", "<C-space>", ":Copilot#Complete()<CR>", { desc = "Copilot complete" })
 
 -- Undotree mapping
 map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", { desc = "Toggle Undotree" })
 
--- Added terminal split mappings
-map("n", "<leader>tv", ":leftabove vsplit | terminal<CR>", { desc = "Open terminal in left vertical split" })
-map("n", "<leader>th", ":aboveleft split | terminal<CR>", { desc = "Open terminal in top horizontal split" })
--- add some terminal keymaps for opening the terminal in the bottom half and right half
-map("n", "<leader>tb", ":belowright split | terminal<CR>", { desc = "Open terminal in bottom horizontal split" })
-map("n", "<leader>tr", ":rightbelow vsplit | terminal<CR>", { desc = "Open terminal in right vertical split" })
+-- Terminal split mappings
+local function open_terminal(split_cmd)
+	vim.cmd(split_cmd .. " | terminal")
+	vim.cmd("startinsert")
+end
+map("n", "<leader>tv", function() open_terminal("leftabove vsplit") end, { desc = "Open terminal in left vertical split" })
+map("n", "<leader>th", function() open_terminal("aboveleft split") end, { desc = "Open terminal in top horizontal split" })
+map("n", "<leader>tb", function() open_terminal("belowright split") end, { desc = "Open terminal in bottom horizontal split" })
+map("n", "<leader>tr", function() open_terminal("rightbelow vsplit") end, { desc = "Open terminal in right vertical split" })
 
 -- Terminal keymaps
 map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })

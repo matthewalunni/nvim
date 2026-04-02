@@ -45,7 +45,7 @@ require("lazy").setup({
 			vim.lsp.enable("pyright")
 
 			-- TypeScript/JavaScript language server
-			vim.lsp.config("tsserver", {
+			vim.lsp.config("ts_ls", {
 				cmd = { "typescript-language-server", "--stdio" },
 				init_options = {
 					hostInfo = "neovim",
@@ -57,7 +57,7 @@ require("lazy").setup({
 				},
 				capabilities = capabilities,
 			})
-			vim.lsp.enable("tsserver")
+			vim.lsp.enable("ts_ls")
 
 			-- Go language server
 			vim.lsp.config("gopls", { capabilities = capabilities })
@@ -144,6 +144,9 @@ require("lazy").setup({
 		"folke/snacks.nvim",
 		lazy = false,
 		priority = 1000,
+		config = function()
+			require("configs.snacks")
+		end,
 	},
 	-- File explorer
 	{
@@ -349,15 +352,6 @@ require("lazy").setup({
 		opts = {},
 	},
 
-	-- Render Markdown plugin
-	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		ft = { "markdown" },
-		dependencies = { "nvim-lua/plenary.nvim" },
-		-- config = function()
-		-- 	pcall(require, "render-markdown").setup({})
-		-- end,
-	},
 	{
 		"norcalli/nvim-colorizer.lua",
 		event = "BufReadPre",

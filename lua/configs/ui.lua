@@ -1,11 +1,3 @@
--- Theme
-vim.cmd([[colorscheme catppuccin-mocha]])
-
--- Onedark
-require("onedark").setup({
-	style = "darker",
-})
-
 -- Catppuccin
 require("catppuccin").setup({
 	flavour = "mocha",
