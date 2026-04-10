@@ -92,12 +92,28 @@ local function worktrees_section()
   return items
 end
 
+local function git_status_section()
+  local output = vim.fn.systemlist("git status --short")
+  if vim.v.shell_error ~= 0 or #output == 0 then return {} end
+
+  local items = {}
+  for _, line in ipairs(output) do
+    table.insert(items, {
+      name = line,
+      action = "",
+      section = "Git Status",
+    })
+  end
+  return items
+end
+
 starter.setup({
   header = function()
     return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
   end,
   sections = {
     worktrees_section,
+    git_status_section,
   },
   footer = function()
     local ok, lazy = pcall(require, "lazy")
