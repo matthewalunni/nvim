@@ -96,8 +96,17 @@ local function git_status_section()
   local output = vim.fn.systemlist("git status --short")
   if vim.v.shell_error ~= 0 or #output == 0 then return {} end
 
+  local limit = 8
   local items = {}
-  for _, line in ipairs(output) do
+  for i, line in ipairs(output) do
+    if i > limit then
+      table.insert(items, {
+        name = string.format("... and %d more", #output - limit),
+        action = "",
+        section = "Git Status",
+      })
+      break
+    end
     table.insert(items, {
       name = line,
       action = "",
@@ -110,12 +119,12 @@ end
 local function quick_keys_section()
   local keys = {
     "<leader>gw    worktree picker — create / delete / rename",
-    "<leader>lg    lazygit",
-    "<leader>sg    grep",
-    "<leader>ff    find files",
-    "<leader>fb    buffers",
-    "<leader>gd    diffview",
     "<leader>gs    git status picker",
+    "<leader>gb    git branches",
+    "<leader>gl    git log",
+    "<leader>gd    diffview",
+    "<leader>gp    github PRs",
+    "<leader>G     fugitive",
   }
   local items = {}
   for _, line in ipairs(keys) do
