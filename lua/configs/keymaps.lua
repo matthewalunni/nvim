@@ -175,51 +175,137 @@ map("n", "gao", ":lua Snacks.picker.lsp_outgoing_calls()<CR>", { desc = "C[a]lls
 map("n", "<leader>ss", ":lua Snacks.picker.lsp_symbols()<CR>", { desc = "LSP Symbols" })
 map("n", "<leader>sS", ":lua Snacks.picker.lsp_workspace_symbols()<CR>", { desc = "LSP Workspace Symbols" })
 map("n", "<leader>lg", ":lua Snacks.lazygit()<CR>", { desc = "LazyGit" })
--- command to search through git worktrees in a picker
+-- Git worktree picker with create / delete / rename / switch
 map("n", "<leader>gw", function()
-	-- Get raw worktree data
-	local output = vim.fn.systemlist("git worktree list --porcelain")
-	if vim.v.shell_error ~= 0 then
-		vim.notify("Not a git repo or git worktree not available", vim.log.levels.ERROR)
-		return
-	end
+  local function get_worktrees()
+    local output = vim.fn.systemlist("git worktree list --porcelain")
+    if vim.v.shell_error ~= 0 then
+      vim.notify("Not a git repo or git worktree unavailable", vim.log.levels.ERROR)
+      return nil
+    end
+    local worktrees = {}
+    local block = {}
+    for _, line in ipairs(output) do
+      if line == "" then
+        if block.path then table.insert(worktrees, block) end
+        block = {}
+      elseif line:match("^worktree ") then
+        block.path = line:sub(10)
+      elseif line:match("^branch ") then
+        block.branch = line:sub(8):match("refs/heads/(.+)") or line:sub(8)
+      elseif line:match("^detached") then
+        block.branch = "HEAD (detached)"
+      end
+    end
+    if block.path then table.insert(worktrees, block) end
+    return worktrees
+  end
 
-	-- Parse worktrees from porcelain output
-	local worktrees = {}
-	local current = {}
+  local worktrees = get_worktrees()
+  if not worktrees then return end
 
-	for _, line in ipairs(output) do
-		if line:match("^worktree ") then
-			current = { path = line:sub(10) }
-		elseif line:match("^branch ") then
-			current.branch = line:sub(8)
-			table.insert(worktrees, current)
-		end
-	end
+  local cwd = vim.fn.getcwd()
+  local items = vim.tbl_map(function(wt)
+    local branch = wt.branch or "unknown"
+    local is_current = wt.path == cwd
+    return {
+      text = branch .. (is_current and "  [current]" or ""),
+      subtext = wt.path,
+      value = wt,
+    }
+  end, worktrees)
 
-	-- Format items for snacks.nvim
-	local items = vim.tbl_map(function(wt)
-		return {
-			text = wt.path,
-			subtext = "Branch: " .. wt.branch,
-			value = wt,
-		}
-	end, worktrees)
-
-	require("snacks").picker({
-		title = "Git Worktrees",
-		items = items,
-		on_submit = function(item)
-			local target = item.value.path
-
-			-- Relaunch nvim in that worktree
-			vim.cmd("cd " .. target)
-			vim.cmd("edit .") -- open root
-			vim.cmd("silent! bufdo e!") -- reload buffers (optional)
-			vim.notify("Switched to worktree: " .. target)
-		end,
-	})
-end, { desc = "Switch Git Worktree (pure git)" })
+  Snacks.picker({
+    title = "Git Worktrees  [<CR>switch  n=new  d=delete  r=rename]",
+    items = items,
+    format = "text",
+    actions = {
+      wt_switch = function(picker)
+        local item = picker:current()
+        if not item then return end
+        picker:close()
+        vim.cmd("cd " .. vim.fn.fnameescape(item.value.path))
+        vim.cmd("edit .")
+        vim.notify("Switched to: " .. (item.value.branch or "unknown"))
+      end,
+      wt_create = function(picker)
+        picker:close()
+        vim.ui.input({ prompt = "Branch name: " }, function(branch)
+          if not branch or branch == "" then return end
+          local root = vim.fn.fnamemodify(cwd, ":h")
+          local repo = vim.fn.fnamemodify(cwd, ":t")
+          local path = root .. "/" .. repo .. "-" .. branch
+          local result = vim.fn.system(
+            "git worktree add " .. vim.fn.shellescape(path) .. " " .. vim.fn.shellescape(branch) .. " 2>&1"
+          )
+          if vim.v.shell_error ~= 0 then
+            vim.notify("Failed to create worktree:\n" .. result, vim.log.levels.ERROR)
+            return
+          end
+          vim.cmd("cd " .. vim.fn.fnameescape(path))
+          vim.cmd("edit .")
+          vim.notify("Created and switched to: " .. branch)
+        end)
+      end,
+      wt_delete = function(picker)
+        local item = picker:current()
+        if not item then return end
+        local path = item.value.path
+        local branch = item.value.branch or "unknown"
+        if path == cwd then
+          vim.notify("Cannot delete the current worktree", vim.log.levels.ERROR)
+          return
+        end
+        vim.ui.input({ prompt = "Delete worktree '" .. branch .. "'? (y/N): " }, function(confirm)
+          if confirm ~= "y" and confirm ~= "Y" then return end
+          picker:close()
+          local result = vim.fn.system("git worktree remove " .. vim.fn.shellescape(path) .. " 2>&1")
+          if vim.v.shell_error ~= 0 then
+            vim.notify("Failed to delete worktree:\n" .. result, vim.log.levels.ERROR)
+            return
+          end
+          vim.notify("Deleted worktree: " .. branch)
+        end)
+      end,
+      wt_rename = function(picker)
+        local item = picker:current()
+        if not item then return end
+        local old_path = item.value.path
+        local branch = item.value.branch or "unknown"
+        vim.ui.input({ prompt = "New path for '" .. branch .. "': ", default = old_path }, function(new_path)
+          if not new_path or new_path == "" or new_path == old_path then return end
+          picker:close()
+          local result = vim.fn.system(
+            "git worktree move " .. vim.fn.shellescape(old_path) .. " " .. vim.fn.shellescape(new_path) .. " 2>&1"
+          )
+          if vim.v.shell_error ~= 0 then
+            vim.notify("Failed to rename worktree:\n" .. result, vim.log.levels.ERROR)
+            return
+          end
+          vim.notify("Moved worktree to: " .. new_path)
+        end)
+      end,
+    },
+    win = {
+      input = {
+        keys = {
+          ["<CR>"] = { "wt_switch", mode = { "n", "i" } },
+          ["n"]    = { "wt_create", mode = { "n", "i" } },
+          ["d"]    = { "wt_delete", mode = { "n", "i" } },
+          ["r"]    = { "wt_rename", mode = { "n", "i" } },
+        },
+      },
+      list = {
+        keys = {
+          ["<CR>"] = "wt_switch",
+          ["n"]    = "wt_create",
+          ["d"]    = "wt_delete",
+          ["r"]    = "wt_rename",
+        },
+      },
+    },
+  })
+end, { desc = "Git Worktrees" })
 
 -- Git keymaps
 
