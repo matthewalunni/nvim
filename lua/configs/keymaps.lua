@@ -229,6 +229,18 @@ map("n", "<leader>gq", ":DiffviewClose<CR>", { desc = "Close Diffview" })
 map("n", "<leader>gH", ":DiffviewFileHistory<CR>", { desc = "Show file history (Diffview)" })
 
 
+-- Fugitive
+map("n", "<leader>G", ":Git<CR>", { desc = "Fugitive status" })
+-- Open 3-way merge split for conflict resolution (ours | working | theirs)
+map("n", "<leader>gM", ":Gvdiffsplit!<CR>", { desc = "3-way merge split" })
+-- Pick from ours (//2, left pane) or theirs (//3, right pane) in merge view
+map("n", "<leader>g2", ":diffget //2<CR>", { desc = "Get from ours (left)" })
+map("n", "<leader>g3", ":diffget //3<CR>", { desc = "Get from theirs (right)" })
+-- Rebase workflow
+map("n", "<leader>grc", ":Git rebase --continue<CR>", { desc = "Rebase continue" })
+map("n", "<leader>gra", ":Git rebase --abort<CR>", { desc = "Rebase abort" })
+map("n", "<leader>grs", ":Git rebase --skip<CR>", { desc = "Rebase skip" })
+
 -- Undotree mapping
 map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", { desc = "Toggle Undotree" })
 
