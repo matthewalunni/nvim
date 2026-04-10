@@ -229,7 +229,6 @@ map("n", "<leader>gw", function()
         vim.notify("Switched to: " .. (item.value.branch or "unknown"))
       end,
       wt_create = function(picker)
-        picker:close()
         vim.ui.input({ prompt = "Branch name: " }, function(branch)
           if not branch or branch == "" then return end
           local root = vim.fn.fnamemodify(cwd, ":h")
@@ -242,6 +241,7 @@ map("n", "<leader>gw", function()
             vim.notify("Failed to create worktree:\n" .. result, vim.log.levels.ERROR)
             return
           end
+          picker:close()
           vim.cmd("cd " .. vim.fn.fnameescape(path))
           vim.cmd("edit .")
           vim.notify("Created and switched to: " .. branch)
