@@ -209,21 +209,9 @@ require("lazy").setup({
 	"nvim-tree/nvim-web-devicons",
 
 	-- Theme
-	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
-	},
-	{
-		"navarasu/onedark.nvim",
-		lazy = false,
-		priority = 1000,
-	},
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		priority = 1000,
-	},
+	{ "folke/tokyonight.nvim", lazy = true },
+	{ "navarasu/onedark.nvim", lazy = true },
+	{ "catppuccin/nvim", name = "catppuccin", lazy = true },
 	{
 		"zaldih/themery.nvim",
 		lazy = false,
