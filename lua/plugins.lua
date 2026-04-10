@@ -236,9 +236,6 @@ require("lazy").setup({
 	-- Git signs
 	"lewis6991/gitsigns.nvim",
 
-	-- Snippets
-	"L3MON4D3/LuaSnip",
-
 	-- Keybindings helper
 	"folke/which-key.nvim",
 
@@ -258,60 +255,6 @@ require("lazy").setup({
 		config = function()
 			require("grug-far").setup({})
 		end,
-	},
-
-	-- Noice
-	{
-		"folke/noice.nvim",
-		dependencies = { "MunifTanjim/nui.nvim" },
-		config = function()
-			require("noice").setup({
-				lsp = {
-					override = {
-						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-						["vim.lsp.util.stylize_markdown"] = true,
-						["cmp.entry.get_documentation"] = true,
-					},
-				},
-				presets = {
-					bottom_search = true,
-					command_palette = true,
-					long_message_to_split = true,
-					inc_rename = false,
-					lsp_doc_border = false,
-				},
-				ui = {
-					confirm = "confirm",
-				},
-				views = {
-					confirm = {
-						backend = "popup",
-						relative = "editor",
-						align = "center",
-						size = {
-							width = "auto",
-							height = "auto",
-						},
-						border = {
-							style = "rounded",
-						},
-						position = {
-							row = "50%",
-							col = "50%",
-						},
-					},
-				},
-			})
-		end,
-	},
-
-	-- Notifications
-	"rcarriga/nvim-notify",
-
-	-- smear cursor
-	{
-		"sphamba/smear-cursor.nvim",
-		opts = {},
 	},
 
 	-- Motion / flash

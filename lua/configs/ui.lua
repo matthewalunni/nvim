@@ -87,9 +87,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		end
 	end,
 })
-
--- Notify
-require("notify").setup({
-	background_colour = "#000000",
-})
-vim.notify = require("notify")
