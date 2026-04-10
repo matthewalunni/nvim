@@ -107,6 +107,27 @@ local function git_status_section()
   return items
 end
 
+local function quick_keys_section()
+  local keys = {
+    "<leader>gw    worktree picker — create / delete / rename",
+    "<leader>lg    lazygit",
+    "<leader>sg    grep",
+    "<leader>ff    find files",
+    "<leader>fb    buffers",
+    "<leader>gd    diffview",
+    "<leader>gs    git status picker",
+  }
+  local items = {}
+  for _, line in ipairs(keys) do
+    table.insert(items, {
+      name = line,
+      action = "",
+      section = "Quick Keys",
+    })
+  end
+  return items
+end
+
 starter.setup({
   header = function()
     return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
@@ -114,6 +135,8 @@ starter.setup({
   sections = {
     worktrees_section,
     git_status_section,
+    starter.sections.recent_files({ n = 5, current_dir = false }),
+    quick_keys_section,
   },
   footer = function()
     local ok, lazy = pcall(require, "lazy")
