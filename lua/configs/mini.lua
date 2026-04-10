@@ -135,7 +135,7 @@ starter.setup({
   sections = {
     worktrees_section,
     git_status_section,
-    starter.sections.recent_files({ n = 5, current_dir = false }),
+    starter.sections.recent_files(5, false),
     quick_keys_section,
   },
   footer = function()
