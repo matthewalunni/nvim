@@ -18,7 +18,7 @@ map("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
 map("n", "<c-n>", "<Plug>(YankyNextEntry)")
 
 -- Open dashboard
-map("n", "<leader>h", ":lua Snacks.dashboard()<CR>", { desc = "Open dashboard" })
+map("n", "<leader>h", function() require("mini.starter").open() end, { desc = "Open dashboard" })
 
 -- Format with conform
 map("n", "<leader>fm", function()
