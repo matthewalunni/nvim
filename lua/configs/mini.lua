@@ -132,7 +132,7 @@ starter.setup({
   header = function()
     return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
   end,
-  sections = {
+  items = {
     worktrees_section,
     git_status_section,
     starter.sections.recent_files(5, false),
