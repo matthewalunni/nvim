@@ -65,6 +65,30 @@ local function worktrees_section()
     })
   end
 
+  -- "+" item to create a new worktree
+  table.insert(items, {
+    name = "+ new worktree",
+    action = function()
+      vim.ui.input({ prompt = "Branch name: " }, function(branch)
+        if not branch or branch == "" then return end
+        local root = vim.fn.fnamemodify(vim.fn.getcwd(), ":h")
+        local repo = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+        local path = root .. "/" .. repo .. "-" .. branch
+        local result = vim.fn.system(
+          "git worktree add " .. vim.fn.shellescape(path) .. " " .. vim.fn.shellescape(branch) .. " 2>&1"
+        )
+        if vim.v.shell_error ~= 0 then
+          vim.notify("Failed to create worktree:\n" .. result, vim.log.levels.ERROR)
+          return
+        end
+        vim.cmd("cd " .. vim.fn.fnameescape(path))
+        vim.cmd("edit .")
+        vim.notify("Created and switched to: " .. branch)
+      end)
+    end,
+    section = "Worktrees",
+  })
+
   return items
 end
 
