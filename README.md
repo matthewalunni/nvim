@@ -12,11 +12,11 @@ A comprehensive Neovim configuration with lazy.nvim plugin manager, featuring LS
 - **UI Enhancements**: Bufferline, lualine statusline, themery theme switcher
 - **Productivity**: Flash motion, which-key keybinding helper, undo tree
 - **Git Integration**: Gitsigns, fugitive, diffview
-- **AI Assistance**: GitHub Copilot integration
 
 ## Installation
 
 1. Clone this repository to your Neovim config directory:
+
    ```bash
    git clone <repository-url> ~/.config/nvim
    ```
@@ -32,3 +32,4 @@ A comprehensive Neovim configuration with lazy.nvim plugin manager, featuring LS
 - Git status: `<Space>gs` (Fugitive)
 - Search and replace: `<Space>sr` (Grug-far)
 - Keybindings help: `<Space>?` (Which-key)
+
