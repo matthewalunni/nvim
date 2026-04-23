@@ -1,4 +1,7 @@
 require("snacks").setup({
+	image = {
+		enabled = false,
+	},
 	lsp = {
 		signature = true,
 		progress = true,
@@ -72,11 +75,6 @@ require("snacks").setup({
 		enabled = true,
 	},
 
-	view = {
-		backend = "popup", -- could also be "mini", "notify", etc.
-		timeout = 2000, -- duration in milliseconds
-		format = "rounded", -- border style
-	},
 	toggle = {},
 	input = {},
 	notifier = {},

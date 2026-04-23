@@ -16,11 +16,6 @@ require("lazy").setup({
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			-- Configure LSP servers using the new Neovim 0.11+ API
-			-- This avoids requiring the deprecated "lspconfig" module and
-			-- uses `vim.lsp.config` / `vim.lsp.enable` per the migration guide.
-
-			-- Lua language server
 			vim.lsp.config("lua_ls", {
 				capabilities = capabilities,
 				settings = {
@@ -40,11 +35,9 @@ require("lazy").setup({
 			})
 			vim.lsp.enable("lua_ls")
 
-			-- Python language server
 			vim.lsp.config("pyright", { capabilities = capabilities })
 			vim.lsp.enable("pyright")
 
-			-- TypeScript/JavaScript language server
 			vim.lsp.config("ts_ls", {
 				cmd = { "typescript-language-server", "--stdio" },
 				init_options = {
@@ -59,7 +52,6 @@ require("lazy").setup({
 			})
 			vim.lsp.enable("ts_ls")
 
-			-- Go language server
 			vim.lsp.config("gopls", { capabilities = capabilities })
 			vim.lsp.enable("gopls")
 		end,
@@ -110,7 +102,6 @@ require("lazy").setup({
 				},
 			})
 
-			-- Filetype-specific completion for gitcommit
 			cmp.setup.filetype("gitcommit", {
 				sources = cmp.config.sources({
 					{ name = "git" },
@@ -119,7 +110,6 @@ require("lazy").setup({
 				}),
 			})
 
-			-- Use buffer source for `/` and `?`
 			cmp.setup.cmdline({ "/", "?" }, {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
@@ -127,7 +117,6 @@ require("lazy").setup({
 				},
 			})
 
-			-- Use cmdline & path source for ':'
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = cmp.config.sources({
@@ -139,7 +128,7 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Dashboard
+	-- Dashboard / utilities (must be eager)
 	{
 		"folke/snacks.nvim",
 		lazy = false,
@@ -148,6 +137,7 @@ require("lazy").setup({
 			require("configs.snacks")
 		end,
 	},
+
 	-- File explorer
 	{
 		"stevearc/oil.nvim",
@@ -155,9 +145,7 @@ require("lazy").setup({
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("oil").setup({
-				view_options = {
-					show_hidden = true,
-				},
+				view_options = { show_hidden = true },
 			})
 		end,
 	},
@@ -165,7 +153,7 @@ require("lazy").setup({
 	-- Quickfix improvements
 	{
 		"stevearc/quicker.nvim",
-		ft = "qf",
+		keys = { "<leader>q", "<leader>l" },
 		config = function()
 			require("quicker").setup({
 				preview = true,
@@ -180,7 +168,13 @@ require("lazy").setup({
 	},
 
 	-- Linting
-	"mfussenegger/nvim-lint",
+	{
+		"mfussenegger/nvim-lint",
+		event = "BufReadPre",
+		config = function()
+			require("configs.lint")
+		end,
+	},
 
 	-- Syntax highlighting
 	{
@@ -189,21 +183,57 @@ require("lazy").setup({
 		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 	},
 
-	-- Icons
-	"nvim-tree/nvim-web-devicons",
+	-- Icons (pulled in as a dependency, not directly)
+	{ "nvim-tree/nvim-web-devicons", lazy = true },
 
-	-- Theme
+	-- Themes
 	{ "folke/tokyonight.nvim", lazy = true },
 	{ "navarasu/onedark.nvim", lazy = true },
-	{ "catppuccin/nvim", name = "catppuccin", lazy = true },
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		lazy = true,
+		config = function()
+			require("catppuccin").setup({
+				flavour = "mocha",
+				transparent_background = true,
+			})
+		end,
+	},
+
+	-- Theme switcher
 	{
 		"zaldih/themery.nvim",
-		lazy = false,
-		priority = 1000,
+		cmd = "Themery",
+		config = function()
+			require("themery").setup({
+				themes = { "tokyonight", "onedark", "catppuccin-mocha", "earthcode" },
+				livePreview = true,
+			})
+		end,
 	},
 
 	-- Status line
-	"nvim-lualine/lualine.nvim",
+	{
+		"nvim-lualine/lualine.nvim",
+		event = "VeryLazy",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			local function lualine_theme()
+				local cs = vim.g.colors_name
+				if cs == "earthcode" then
+					return require("earthcode.integrations.lualine").theme()
+				end
+				return cs or "auto"
+			end
+			require("lualine").setup({ options = { theme = lualine_theme() } })
+			vim.api.nvim_create_autocmd("ColorScheme", {
+				callback = function()
+					require("lualine").setup({ options = { theme = lualine_theme() } })
+				end,
+			})
+		end,
+	},
 
 	-- Undotree
 	{
@@ -214,14 +244,71 @@ require("lazy").setup({
 	-- Bufferline
 	{
 		"akinsho/bufferline.nvim",
+		event = "VeryLazy",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("configs.bufferline")
+		end,
 	},
 
 	-- Git signs
-	"lewis6991/gitsigns.nvim",
+	{
+		"lewis6991/gitsigns.nvim",
+		event = "BufReadPre",
+		config = true,
+	},
 
 	-- Keybindings helper
-	"folke/which-key.nvim",
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("which-key").setup({
+				plugins = {
+					marks = true,
+					registers = true,
+					spelling = {
+						enabled = true,
+						suggestions = 20,
+					},
+					presets = {
+						operators = false,
+						motions = false,
+						text_objects = false,
+						windows = false,
+						nav = false,
+						z = false,
+						g = false,
+					},
+				},
+				icons = {
+					breadcrumb = "»",
+					separator = "➜",
+					group = "+",
+				},
+				keys = {
+					scroll_down = "<c-d>",
+					scroll_up = "<c-u>",
+				},
+				win = {
+					border = "rounded",
+					padding = { 1, 2 },
+					title = true,
+					title_pos = "center",
+					zindex = 1000,
+				},
+				layout = {
+					height = { min = 4, max = 25 },
+					width = { min = 20, max = 50 },
+					spacing = 3,
+					align = "left",
+				},
+				show_help = true,
+				show_keys = true,
+				preset = "helix",
+			})
+		end,
+	},
 
 	-- Mini
 	{
@@ -229,8 +316,22 @@ require("lazy").setup({
 		version = false,
 	},
 
-	-- Clipboard
-	"ojroques/vim-oscyank",
+	-- Clipboard / OSC yank
+	{
+		"ojroques/vim-oscyank",
+		event = "VeryLazy",
+		config = function()
+			vim.g.oscyank_term = "default"
+			vim.api.nvim_create_autocmd("TextYankPost", {
+				pattern = "*",
+				callback = function()
+					if vim.v.event.operator == "y" and vim.v.event.regname == "" then
+						vim.cmd('OSCYankReg "')
+					end
+				end,
+			})
+		end,
+	},
 
 	-- Search and replace
 	{
@@ -244,12 +345,12 @@ require("lazy").setup({
 	-- Motion / flash
 	{
 		"folke/flash.nvim",
-		event = { "VeryLazy" },
+		event = "VeryLazy",
 		opts = {},
 	},
 
 	-- Fugitive
-	"tpope/vim-fugitive",
+	{ "tpope/vim-fugitive", cmd = { "Git", "Gvdiffsplit" } },
 
 	-- Diffview (git diffs)
 	{
@@ -262,23 +363,17 @@ require("lazy").setup({
 	},
 
 	-- Yanky
-	{
-		"gbprod/yanky.nvim",
-		opts = {},
-	},
+	{ "gbprod/yanky.nvim", event = "VeryLazy", opts = {} },
 
 	{
 		"norcalli/nvim-colorizer.lua",
 		event = "BufReadPre",
 		config = function()
-			local ok, colorizer = pcall(require, "colorizer")
-			if ok and colorizer and colorizer.setup then
-				colorizer.setup()
-			end
+			require("colorizer").setup()
 		end,
 	},
 
-	-- Earthcode
+	-- Earthcode (must be eager to set colorscheme at startup)
 	{
 		"matthewalunni/earthcode.nvim",
 		lazy = false,

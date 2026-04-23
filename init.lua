@@ -8,6 +8,7 @@ vim.opt.smartindent = true
 vim.opt.termguicolors = true
 vim.opt.cursorline = true
 vim.opt.wrap = true
+vim.opt.linebreak = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
@@ -41,13 +42,7 @@ vim.opt.rtp:prepend(lazypath)
 require("plugins")
 
 -- Load configurations
-require("configs.snacks")
 require("configs.conform")
-require("configs.lint")
 require("configs.treesitter")
-require("configs.bufferline")
 require("configs.mini")
-require("configs.ui")
 require("configs.keymaps")
-require("configs.quicker")
-require("configs.flash")
