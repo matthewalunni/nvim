@@ -153,6 +153,7 @@ require("lazy").setup({
 	-- Quickfix improvements
 	{
 		"stevearc/quicker.nvim",
+		ft = "qf",
 		keys = { "<leader>q", "<leader>l" },
 		config = function()
 			require("quicker").setup({
