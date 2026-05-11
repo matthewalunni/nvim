@@ -1,4 +1,6 @@
-require('nvim-treesitter.configs').setup({
+local ok, configs = pcall(require, 'nvim-treesitter.configs')
+if not ok then return end
+configs.setup({
   ensure_installed = {
     'lua', 'python', 'javascript', 'typescript', 'html', 'css', 'json', 'yaml',
     'bash', 'dockerfile', 'gitignore', 'markdown', 'markdown_inline', 'regex', 'vim'
