@@ -182,6 +182,9 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+		config = function()
+			require("configs.treesitter")
+		end,
 	},
 
 	-- Icons (pulled in as a dependency, not directly)

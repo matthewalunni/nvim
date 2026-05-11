@@ -43,6 +43,5 @@ require("plugins")
 
 -- Load configurations
 require("configs.conform")
-require("configs.treesitter")
 require("configs.mini")
 require("configs.keymaps")
