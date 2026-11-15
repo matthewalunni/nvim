@@ -54,6 +54,30 @@ require("lazy").setup({
 
 			vim.lsp.config("gopls", { capabilities = capabilities })
 			vim.lsp.enable("gopls")
+
+			vim.lsp.config("ruby_lsp", { capabilities = capabilities })
+			vim.lsp.enable("ruby_lsp")
+
+			-- ruby_lsp doesn't infer a variable's type, so `name = "a"; name.`
+			-- completes nothing. Solargraph does; it's here for completion only.
+			-- ruby_lsp keeps formatting and diagnostics, so the two don't both
+			-- reformat on save or report every problem twice.
+			vim.lsp.config("solargraph", {
+				-- Solargraph registers formatting at runtime; refusing dynamic
+				-- registration keeps format-on-save from falling back to it.
+				capabilities = vim.tbl_deep_extend("force", capabilities, {
+					textDocument = {
+						formatting = { dynamicRegistration = false },
+						rangeFormatting = { dynamicRegistration = false },
+					},
+				}),
+				settings = { solargraph = { diagnostics = false, formatting = false } },
+				on_init = function(client)
+					client.server_capabilities.documentFormattingProvider = false
+					client.server_capabilities.documentRangeFormattingProvider = false
+				end,
+			})
+			vim.lsp.enable("solargraph")
 		end,
 	},
 

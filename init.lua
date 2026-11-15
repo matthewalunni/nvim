@@ -21,6 +21,20 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 vim.opt.clipboard = "unnamedplus"
 
+-- Prettier-formatted languages use 2-space indents; the global 4 above made
+-- new lines over-indent until the formatter pulled them back.
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"javascript", "javascriptreact", "typescript", "typescriptreact",
+		"json", "jsonc", "html", "css", "scss", "yaml", "markdown", "ruby",
+	},
+	callback = function()
+		vim.bo.shiftwidth = 2
+		vim.bo.tabstop = 2
+		vim.bo.softtabstop = 2
+	end,
+})
+
 -- Leader key
 vim.g.mapleader = " "
 

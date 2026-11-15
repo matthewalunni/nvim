@@ -57,10 +57,14 @@ configs.setup({
   auto_install = true,
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = false,
+    -- vim-ruby's indenter reads regex syntax groups, so keep them for Ruby.
+    additional_vim_regex_highlighting = { 'ruby' },
   },
   indent = {
     enable = true,
+    -- Treesitter's Ruby indent misplaces lines inside a block that has no
+    -- `end` yet, which is every block while you type it. Use vim-ruby's.
+    disable = { 'ruby' },
   },
   incremental_selection = {
     enable = true,
