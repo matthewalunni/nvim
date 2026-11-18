@@ -9,7 +9,7 @@
   "cmp_luasnip": { "branch": "master", "commit": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90" },
   "conform.nvim": { "branch": "master", "commit": "016802de402556da54c36bd7359b441266b01cdd" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
-  "earthcode.nvim": { "branch": "main", "commit": "14bacecae9fae52e45f962f466cf5dd79668d94c" },
+  "earthcode.nvim": { "branch": "main", "commit": "efeab57c460c67e597d1de8b2c2845cd02ed4e57" },
   "flash.nvim": { "branch": "main", "commit": "5f0f270fdc7c5b0c21d903ee85b9cb06f2ac636a" },
   "gitflix.nvim": { "branch": "main", "commit": "753c26b014d002ae7ae3ed7529c30d5056480546" },
   "gitsigns.nvim": { "branch": "main", "commit": "dc7698f932792a764d3db95fedee26c38e728355" },
