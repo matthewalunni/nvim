@@ -427,4 +427,14 @@ require("lazy").setup({
 			{ "<leader>gf", "<cmd>Gitflix<cr>", desc = "Gitflix" },
 		},
 	},
+
+	-- Markdown rendering (tables, headings, code blocks)
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+		ft = { "markdown" },
+		opts = {
+			pipe_table = { preset = "round" },
+		},
+	},
 })
