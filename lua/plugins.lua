@@ -180,8 +180,10 @@ require("lazy").setup({
 	-- Syntax highlighting
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		lazy = false, -- main branch does not support lazy-loading
 		build = ":TSUpdate",
-		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+		dependencies = { { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" } },
 		config = function()
 			require("configs.treesitter")
 		end,
@@ -370,7 +372,7 @@ require("lazy").setup({
 	{ "gbprod/yanky.nvim", event = "VeryLazy", opts = {} },
 
 	{
-		"norcalli/nvim-colorizer.lua",
+		"catgoose/nvim-colorizer.lua", -- maintained fork; norcalli's is abandoned
 		event = "BufReadPre",
 		config = function()
 			require("colorizer").setup()
