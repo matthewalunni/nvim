@@ -6,7 +6,7 @@ local ok, ts = pcall(require, "nvim-treesitter")
 if not ok then return end
 
 local ensure_installed = {
-	"lua", "python", "javascript", "typescript", "html", "css", "json", "yaml",
+	"lua", "python", "javascript", "typescript", "tsx", "jsdoc", "html", "css", "json", "yaml",
 	"bash", "dockerfile", "gitignore", "markdown", "markdown_inline", "regex", "vim",
 }
 
