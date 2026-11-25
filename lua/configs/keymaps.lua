@@ -167,7 +167,8 @@ map("n", "<leader>uC", ":lua Snacks.picker.colorschemes()<CR>", { desc = "Colors
 map("n", "gd", ":lua Snacks.picker.lsp_definitions()<CR>", { desc = "Goto Definition" })
 map("n", "gD", ":lua Snacks.picker.lsp_declarations()<CR>", { desc = "Goto Declaration" })
 -- Nvim's built-in grr/grn/gra/gri/grt/grx make `gr` a prefix, so `gr` alone
--- waited for timeoutlen before firing. Their actions are mapped elsewhere here.
+-- waited for timeoutlen before firing. All but grx (codelens run, unused here)
+-- are mapped elsewhere: <space>rn, <space>ca, gi, <space>D.
 for _, lhs in ipairs({ "grr", "grn", "gra", "gri", "grt", "grx" }) do
 	pcall(vim.keymap.del, "n", lhs)
 end
