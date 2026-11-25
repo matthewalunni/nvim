@@ -166,7 +166,11 @@ map("n", "<leader>uC", ":lua Snacks.picker.colorschemes()<CR>", { desc = "Colors
 -- LSP
 map("n", "gd", ":lua Snacks.picker.lsp_definitions()<CR>", { desc = "Goto Definition" })
 map("n", "gD", ":lua Snacks.picker.lsp_declarations()<CR>", { desc = "Goto Declaration" })
--- we may need to add nowait to 'gr'
+-- Nvim's built-in grr/grn/gra/gri/grt/grx make `gr` a prefix, so `gr` alone
+-- waited for timeoutlen before firing. Their actions are mapped elsewhere here.
+for _, lhs in ipairs({ "grr", "grn", "gra", "gri", "grt", "grx" }) do
+	pcall(vim.keymap.del, "n", lhs)
+end
 map("n", "gr", ":lua Snacks.picker.lsp_references()<CR>", { desc = "References" })
 map("n", "gI", ":lua Snacks.picker.lsp_implementations()<CR>", { desc = "Goto Implementation" })
 map("n", "gy", ":lua Snacks.picker.lsp_type_definitions()<CR>", { desc = "Goto T[y]pe Definition" })
