@@ -9,6 +9,19 @@ require("lazy").setup({
 		end,
 	},
 
+	-- Install the language servers enabled below, so a fresh machine (e.g. a
+	-- codespace) doesn't silently have no LSP. gopls needs Go, so it's left to
+	-- `go install`. automatic_enable is off: servers are enabled explicitly below.
+	{
+		"mason-org/mason-lspconfig.nvim",
+		lazy = false,
+		dependencies = { "williamboman/mason.nvim" },
+		opts = {
+			ensure_installed = { "lua_ls", "pyright", "ts_ls" },
+			automatic_enable = false,
+		},
+	},
+
 	-- LSP config + setup
 	{
 		"neovim/nvim-lspconfig",
